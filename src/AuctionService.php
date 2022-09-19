@@ -1,19 +1,23 @@
 <?php
 
-require_once("CarouselInterface.php");
-require_once("BidModel.php");
+namespace AuctionRunners;
+
+use AuctionRunners\Interfaces\CarouselInterface;
+use AuctionRunners\Model\BidModel;
+use AuctionRunners\Model\BuyerModel;
+use AuctionRunners\Model\WinnerModel;
 
 class AuctionService implements CarouselInterface
 {
     /**
      * @var Auction[]
      */
-    private $races = [];
+    private array $races = [];
 
     public function start(): string
     {
         $id = uniqid();
-        $this->rases[$id] = new Auction();
+        $this->races[$id] = new Auction();
 
         return $id;
     }
@@ -23,8 +27,9 @@ class AuctionService implements CarouselInterface
      * @param array|BuyerModel[] $buyers
      *
      * @return void
+     * @throws \Exception
      */
-    public function loadAuctionMembersActions(string $auctionId, array $buyers)
+    public function loadAuctionMembersActions(string $auctionId, array $buyers): void
     {
         $auction = $this->getAuction($auctionId);
 
@@ -51,6 +56,22 @@ class AuctionService implements CarouselInterface
         }
     }
 
+    public function loadAuctionMember(string $auctionId, BuyerModel $buyer): void
+    {
+        $auction = $this->getAuction($auctionId);
+
+        if (false === $auction->isActive()) {
+            throw new \Exception(\sprintf(
+                "Auction id %s is closed. Can not load new members",
+                $auctionId
+            ));
+        }
+
+        foreach ($buyer->getAuctionBets($auctionId) as $bet) {
+            $auction->loadBid(new BidModel($bet, $buyer));
+        }
+    }
+
     public function getWinner(string $auctionId): ?WinnerModel
     {
         $auction = $this->getAuction($auctionId);
@@ -64,13 +85,13 @@ class AuctionService implements CarouselInterface
 
     private function getAuction(string $auctionId): Auction
     {
-        if (null === $this->rases[$auctionId]) {
-            throw new RuntimeException(\sprintf(
+        if (false === isset($this->races[$auctionId])) {
+            throw new \RuntimeException(\sprintf(
                 "Auction id %s not exists",
                 $auctionId,
             ));
         }
 
-        return $this->rases[$auctionId];
+        return $this->races[$auctionId];
     }
 }

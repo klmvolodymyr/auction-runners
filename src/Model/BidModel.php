@@ -1,12 +1,11 @@
 <?php
 
-require_once('BetModel.php');
-require_once('BuyerModel.php');
+namespace AuctionRunners\Model;
 
 class BidModel
 {
-    private $bet;
-    private $buyer;
+    private BetModel $bet;
+    private BuyerModel $buyer;
 
     public function __construct(BetModel $bet, BuyerModel $buyer)
     {

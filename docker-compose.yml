@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  # Runtime application auction-runner.
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    env_file: .env
+    command: ./vendor/bin/phpunit -c phpunit.xml tests/
+    volumes:
+      - ./:/auction-runners
+    networks:
+      - backend
+
+networks:
+    backend:

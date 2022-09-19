@@ -1,0 +1,33 @@
+### auction-runners
+
+```bash
+     composer run test
+     > vendor/bin/phpunit -c phpunit.xml tests/
+     PHPUnit 9.5.26 by Sebastian Bergmann and contributors.
+
+     Warning:       Your XML configuration validates against a deprecated schema.
+     Suggestion:    Migrate your XML configuration using "--migrate-configuration"!
+
+     ..                                                                  2 / 2 (100%)
+
+     Time: 00:00.008, Memory: 6.00 MB
+
+     OK (2 tests, 2 assertions)
+```
+
+```bash
+     docker-compose up
+    [+] Running 1/0
+     ⠿ Container auction-runners-app-1  Created                                                                                                                                               0.0s
+    Attaching to auction-runners-app-1
+    auction-runners-app-1  | PHPUnit 9.5.26 by Sebastian Bergmann and contributors.
+    auction-runners-app-1  |
+    auction-runners-app-1  | Warning:       Your XML configuration validates against a deprecated schema.
+    auction-runners-app-1  | Suggestion:    Migrate your XML configuration using "--migrate-configuration"!
+    auction-runners-app-1  |
+    auction-runners-app-1  | ..                                                                  2 / 2 (100%)
+    auction-runners-app-1  |
+    auction-runners-app-1  | Time: 00:00.051, Memory: 6.00 MB
+    auction-runners-app-1  |
+    auction-runners-app-1  | OK (2 tests, 2 asser
+```

@@ -1,8 +1,10 @@
 <?php
 
+namespace AuctionRunners\Model;
+
 class BetModel 
 {
-    private $price;
+    private int $price = 0;
 
     public function __construct(int $price)
     {

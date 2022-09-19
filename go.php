@@ -1,7 +1,8 @@
 <?php
 
-set_include_path(dirname(__FILE__));
-require_once('Processor.php');
+use AuctionRunners\Processor;
+
+require __DIR__ . '/vendor/autoload.php';
 
 //  Example Consider 5 potential buyers (A, B, C, D, E) 
     // who compete to acquire an object with a reserve price set at 100 euros, bidding as follows: 
@@ -11,14 +12,9 @@ require_once('Processor.php');
         // D: 3 bids of 105, 115 and 90 euros 
         // E: 3 bids of 132, 135 and 140 euros 
 
-// The buyer E wins the auction at the price of 130 euros. 
-
+// The buyer E wins the auction at the price of 130 euros.
 $buyers = [
-    'Arnold',
-    'Bim',
-    'Carrol',
-    'Dan',
-    'Ell',
+    'Arnold', 'Bim', 'Carrol', 'Dan', 'Ell',
 ];
 
 $bets = [

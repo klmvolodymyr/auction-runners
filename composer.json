@@ -1,0 +1,27 @@
+{
+    "name": "vova/auction-runners",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "AuctionRunners\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Vova",
+            "email": "113995961+vkeasternpeak@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit -c phpunit.xml tests/"
+    }
+}

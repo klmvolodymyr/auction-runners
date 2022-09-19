@@ -1,10 +1,12 @@
 <?php
 
+namespace AuctionRunners\Model;
+
 class WinnerModel
 {
-    private $price;
-    private $bid;
-    private $buyer;
+    private int $price = 0;
+    private BidModel $bid;
+    private BuyerModel $buyer;
 
     public function __construct(int $price, BidModel $bid, BuyerModel $buyer)
     {

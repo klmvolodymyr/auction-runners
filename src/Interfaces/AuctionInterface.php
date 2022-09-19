@@ -1,6 +1,9 @@
 <?php
 
-include_once ('BuyerModel.php');
+namespace AuctionRunners\Interfaces;
+
+use AuctionRunners\Model\BidModel;
+use AuctionRunners\Model\WinnerModel;
 
 interface AuctionInterface
 {

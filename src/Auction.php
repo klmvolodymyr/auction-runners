@@ -1,36 +1,29 @@
 <?php
 
-require_once("AuctionInterface.php");
-require_once("WinnerModel.php");
+namespace AuctionRunners;
+
+use AuctionRunners\Interfaces\AuctionInterface;
+use AuctionRunners\Model\BidModel;
+use AuctionRunners\Model\WinnerModel;
 
 class Auction implements AuctionInterface
 {
-    private $state = true;
+    private bool $state = true;
 
     /**
      * @var WinnerModel|null
      */
-    private $winner = null;
+    private ?WinnerModel $winner = null;
 
     /**
      * @var BidModel[]
      */
-    private $bids = [];
+    private array $bids = [];
 
     /**
      * @var BidModel[]
      */
-    private $rate = [];
-
-    public function __construct()
-    {
-
-    }
-
-    public function __destruct()
-    {
-        // flush on remote storage
-    }
+    private array $rate = [];
 
     public function stop(): void
     {
@@ -43,7 +36,7 @@ class Auction implements AuctionInterface
         $buyerName = $bid->getBuyer()->getName();
         $this->bids[] = $bid;
 
-        if (null === $this->rate[$buyerName]) {
+        if (false === isset($this->rate[$buyerName])) {
             $this->rate[$buyerName] = $bid;
 
             return;
@@ -78,7 +71,7 @@ class Auction implements AuctionInterface
             return $this->winner;
         }
 
-        usort($this->rate, function(BidModel $a, BidModel$b) {
+        @usort($this->rate, function(BidModel $a, BidModel$b) {
             /** @var BidModel a */
             /** @var BidModel b */
             return $a->getBet() > $b->getBet();
@@ -109,10 +102,9 @@ class Auction implements AuctionInterface
         $this->state = false;
     }
 
-    private function setWinner(WinnerModel $winner): Auction
+    private function setWinner(WinnerModel $winner): void
     {
         $this->winner = $winner;
 
-        return $this;
     }
 }
